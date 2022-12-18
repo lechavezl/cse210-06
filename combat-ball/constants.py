@@ -82,7 +82,7 @@ STATS_GROUP = "stats"
 DEFAULT_LIVES = 3
 MAXIMUM_LIVES = 5
 
-# STATS
+# SECOND STATS
 SECOND_STATS_GROUP = "second_stats"
 SECOND_DEFAULT_LIVES = 3
 SECOND_MAXIMUM_LIVES = 5
@@ -91,9 +91,11 @@ SECOND_MAXIMUM_LIVES = 5
 HUD_MARGIN = 15
 LEVEL_GROUP = "level"
 LIVES_GROUP = "lives"
+SECOND_LIVES_GROUP = "second_lives"
 SCORE_GROUP = "score"
 LEVEL_FORMAT = "LEVEL: {}"
-LIVES_FORMAT = "LIVES: {}"
+LIVES_FORMAT = "PLAYER 1 LIVES: {}"
+SECOND_LIVES_FORMAT = "PLAYER 2 LIVES: {}"
 SCORE_FORMAT = "SCORE: {}"
 
 # BALL
@@ -119,20 +121,6 @@ SECOND_RACKET_WIDTH = 106
 SECOND_RACKET_HEIGHT = 28
 SECOND_RACKET_RATE = 6
 SECOND_RACKET_VELOCITY = 7
-
-# # BRICK
-# BRICK_GROUP = "bricks"
-# BRICK_IMAGES = {
-#     "b": [f"combat-ball/assets/images/{i:03}.png" for i in range(10,19)],
-#     "g": [f"combat-ball/assets/images/{i:03}.png" for i in range(20,29)],
-#     "p": [f"combat-ball/assets/images/{i:03}.png" for i in range(30,39)],
-#     "y": [f"combat-ball/assets/images/{i:03}.png" for i in range(40,49)]
-# }
-# BRICK_WIDTH = 80
-# BRICK_HEIGHT = 28
-# BRICK_DELAY = 0.5
-# BRICK_RATE = 4
-# BRICK_POINTS = 50
 
 # DIALOG
 DIALOG_GROUP = "dialogs"
