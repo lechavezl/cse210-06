@@ -3,29 +3,35 @@ from constants import *
 from game.casting.animation import Animation
 from game.casting.ball import Ball
 from game.casting.body import Body
-from game.casting.brick import Brick
+#from game.casting.brick import Brick
 from game.casting.image import Image
 from game.casting.label import Label
 from game.casting.point import Point
 from game.casting.racket import Racket
+from game.casting.racket2 import Racket2
 from game.casting.stats import Stats
 from game.casting.text import Text 
 from game.scripting.change_scene_action import ChangeSceneAction
-from game.scripting.check_over_action import CheckOverAction
+#TODO
+#from game.scripting.check_over_action import CheckOverAction
 from game.scripting.collide_borders_action import CollideBordersAction
-from game.scripting.collide_brick_action import CollideBrickAction
+#from game.scripting.collide_brick_action import CollideBrickAction
 from game.scripting.collide_racket_action import CollideRacketAction
+from game.scripting.collide_racket2_action import CollideRacket2Action
 from game.scripting.control_racket_action import ControlRacketAction
+from game.scripting.control_racket2_action import ControlRacket2Action
 from game.scripting.draw_ball_action import DrawBallAction
-from game.scripting.draw_bricks_action import DrawBricksAction
+#from game.scripting.draw_bricks_action import DrawBricksAction
 from game.scripting.draw_dialog_action import DrawDialogAction
 from game.scripting.draw_hud_action import DrawHudAction
 from game.scripting.draw_racket_action import DrawRacketAction
+from game.scripting.draw_racket2_action import DrawRacket2Action
 from game.scripting.end_drawing_action import EndDrawingAction
 from game.scripting.initialize_devices_action import InitializeDevicesAction
 from game.scripting.load_assets_action import LoadAssetsAction
 from game.scripting.move_ball_action import MoveBallAction
 from game.scripting.move_racket_action import MoveRacketAction
+from game.scripting.move_racket2_action import MoveRacket2Action
 from game.scripting.play_sound_action import PlaySoundAction
 from game.scripting.release_devices_action import ReleaseDevicesAction
 from game.scripting.start_drawing_action import StartDrawingAction
@@ -45,21 +51,26 @@ class SceneManager:
     PHYSICS_SERVICE = RaylibPhysicsService()
     VIDEO_SERVICE = RaylibVideoService(GAME_NAME, SCREEN_WIDTH, SCREEN_HEIGHT)
 
-    CHECK_OVER_ACTION = CheckOverAction()
+    #TODO
+    #CHECK_OVER_ACTION = CheckOverAction()
     COLLIDE_BORDERS_ACTION = CollideBordersAction(PHYSICS_SERVICE, AUDIO_SERVICE)
-    COLLIDE_BRICKS_ACTION = CollideBrickAction(PHYSICS_SERVICE, AUDIO_SERVICE)
+    #COLLIDE_BRICKS_ACTION = CollideBrickAction(PHYSICS_SERVICE, AUDIO_SERVICE)
     COLLIDE_RACKET_ACTION = CollideRacketAction(PHYSICS_SERVICE, AUDIO_SERVICE)
     CONTROL_RACKET_ACTION = ControlRacketAction(KEYBOARD_SERVICE)
+    COLLIDE_RACKET2_ACTION = CollideRacket2Action(PHYSICS_SERVICE, AUDIO_SERVICE)
+    CONTROL_RACKET2_ACTION = ControlRacket2Action(KEYBOARD_SERVICE)
     DRAW_BALL_ACTION = DrawBallAction(VIDEO_SERVICE)
-    DRAW_BRICKS_ACTION = DrawBricksAction(VIDEO_SERVICE)
+    #DRAW_BRICKS_ACTION = DrawBricksAction(VIDEO_SERVICE)
     DRAW_DIALOG_ACTION = DrawDialogAction(VIDEO_SERVICE)
     DRAW_HUD_ACTION = DrawHudAction(VIDEO_SERVICE)
     DRAW_RACKET_ACTION= DrawRacketAction(VIDEO_SERVICE)
+    DRAW_RACKET2_ACTION= DrawRacket2Action(VIDEO_SERVICE)
     END_DRAWING_ACTION = EndDrawingAction(VIDEO_SERVICE)
     INITIALIZE_DEVICES_ACTION = InitializeDevicesAction(AUDIO_SERVICE, VIDEO_SERVICE)
     LOAD_ASSETS_ACTION = LoadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
     MOVE_BALL_ACTION = MoveBallAction()
     MOVE_RACKET_ACTION = MoveRacketAction()
+    MOVE_RACKET2_ACTION = MoveRacket2Action()
     RELEASE_DEVICES_ACTION = ReleaseDevicesAction(AUDIO_SERVICE, VIDEO_SERVICE)
     START_DRAWING_ACTION = StartDrawingAction(VIDEO_SERVICE)
     UNLOAD_ASSETS_ACTION = UnloadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
@@ -89,8 +100,9 @@ class SceneManager:
         self._add_lives(cast)
         self._add_score(cast)
         self._add_ball(cast)
-        self._add_bricks(cast)
+        #self._add_bricks(cast)
         self._add_racket(cast)
+        self._add_racket2(cast)
         self._add_dialog(cast, ENTER_TO_START)
 
         self._add_initialize_script(script)
@@ -103,8 +115,9 @@ class SceneManager:
         
     def _prepare_next_level(self, cast, script):
         self._add_ball(cast)
-        self._add_bricks(cast)
+       # self._add_bricks(cast)
         self._add_racket(cast)
+        self._add_racket2(cast)
         self._add_dialog(cast, PREP_TO_LAUNCH)
 
         script.clear_actions(INPUT)
@@ -115,6 +128,7 @@ class SceneManager:
     def _prepare_try_again(self, cast, script):
         self._add_ball(cast)
         self._add_racket(cast)
+        self._add_racket2(cast)
         self._add_dialog(cast, PREP_TO_LAUNCH)
 
         script.clear_actions(INPUT)
@@ -128,12 +142,14 @@ class SceneManager:
 
         script.clear_actions(INPUT)
         script.add_action(INPUT, self.CONTROL_RACKET_ACTION)
+        script.add_action(INPUT, self.CONTROL_RACKET2_ACTION)
         self._add_update_script(script)
         self._add_output_script(script)
 
     def _prepare_game_over(self, cast, script):
         self._add_ball(cast)
         self._add_racket(cast)
+        self._add_racket2(cast)
         self._add_dialog(cast, WAS_GOOD_GAME)
 
         script.clear_actions(INPUT)
@@ -161,38 +177,44 @@ class SceneManager:
         ball = Ball(body, image, True)
         cast.add_actor(BALL_GROUP, ball)
 
-    def _add_bricks(self, cast):
-        cast.clear_actors(BRICK_GROUP)
+    # def _add_bricks(self, cast):
+    #     cast.clear_actors(BRICK_GROUP)
         
-        stats = cast.get_first_actor(STATS_GROUP)
-        level = stats.get_level() % BASE_LEVELS
-        filename = LEVEL_FILE.format(level)
+    #     stats = cast.get_first_actor(STATS_GROUP)
+    #     level = stats.get_level() % BASE_LEVELS
+    #     filename = LEVEL_FILE.format(level)
 
-        with open(filename, 'r') as file:
-            reader = csv.reader(file, skipinitialspace=True)
+    #     with open(filename, 'r') as file:
+    #         reader = csv.reader(file, skipinitialspace=True)
 
-            for r, row in enumerate(reader):
-                for c, column in enumerate(row):
-
-                    x = FIELD_LEFT + c * BRICK_WIDTH
-                    y = FIELD_TOP + r * BRICK_HEIGHT
-                    color = column[0]
-                    frames = int(column[1])
-                    points = BRICK_POINTS 
+    #         for r, row in enumerate(reader):
+    #             for c, column in enumerate(row):
                     
-                    if frames == 1:
-                        points *= 2
+    #                 x = FIELD_LEFT + c * BRICK_WIDTH
+    #                 y = FIELD_TOP + r * BRICK_HEIGHT
+    #                 x1 = FIELD_RIGHT - 100 - c * BRICK_WIDTH
                     
-                    position = Point(x, y)
-                    size = Point(BRICK_WIDTH, BRICK_HEIGHT)
-                    velocity = Point(0, 0)
-                    images = BRICK_IMAGES[color][0:frames]
+    #                 color = column[0]
+    #                 frames = int(column[1])
+    #                 points = BRICK_POINTS 
+                    
+    #                 if frames == 1:
+    #                     points *= 2
+                    
+    #                 position = Point(x, y)
+    #                 position2 = Point(x1, y)
+    #                 size = Point(BRICK_WIDTH, BRICK_HEIGHT)
+    #                 velocity = Point(0, 0)
+    #                 images = BRICK_IMAGES[color][0:frames]
 
-                    body = Body(position, size, velocity)
-                    animation = Animation(images, BRICK_RATE, BRICK_DELAY)
+    #                 body = Body(position, size, velocity)
+    #                 body2 = Body(position2, size, velocity)
+    #                 animation = Animation(images, BRICK_RATE, BRICK_DELAY)
 
-                    brick = Brick(body, animation, points)
-                    cast.add_actor(BRICK_GROUP, brick)
+    #                 brick = Brick(body, animation, points)
+    #                 brick2 = Brick(body2, animation, points)
+    #                 cast.add_actor(BRICK_GROUP, brick)
+    #                 cast.add_actor(BRICK_GROUP, brick2)
 
     def _add_dialog(self, cast, message):
         cast.clear_actors(DIALOG_GROUP)
@@ -239,6 +261,18 @@ class SceneManager:
         racket = Racket(body, animation)
         cast.add_actor(RACKET_GROUP, racket)
 
+    def _add_racket2(self, cast):
+        cast.clear_actors(SECOND_RACKET_GROUP)
+        x = CENTER_X - SECOND_RACKET_WIDTH / 2
+        y = 50
+        position = Point(x, y)
+        size = Point(SECOND_RACKET_WIDTH, SECOND_RACKET_HEIGHT)
+        velocity = Point(0, 0)
+        body = Body(position, size, velocity)
+        animation = Animation(SECOND_RACKET_IMAGES, SECOND_RACKET_RATE)
+        racket2 = Racket2(body, animation)
+        cast.add_actor(SECOND_RACKET_GROUP, racket2)    
+
     # ----------------------------------------------------------------------------------------------
     # scripting methods
     # ----------------------------------------------------------------------------------------------
@@ -255,8 +289,9 @@ class SceneManager:
         script.add_action(OUTPUT, self.START_DRAWING_ACTION)
         script.add_action(OUTPUT, self.DRAW_HUD_ACTION)
         script.add_action(OUTPUT, self.DRAW_BALL_ACTION)
-        script.add_action(OUTPUT, self.DRAW_BRICKS_ACTION)
+        #script.add_action(OUTPUT, self.DRAW_BRICKS_ACTION)
         script.add_action(OUTPUT, self.DRAW_RACKET_ACTION)
+        script.add_action(OUTPUT, self.DRAW_RACKET2_ACTION)
         script.add_action(OUTPUT, self.DRAW_DIALOG_ACTION)
         script.add_action(OUTPUT, self.END_DRAWING_ACTION)
 
@@ -272,8 +307,11 @@ class SceneManager:
         script.clear_actions(UPDATE)
         script.add_action(UPDATE, self.MOVE_BALL_ACTION)
         script.add_action(UPDATE, self.MOVE_RACKET_ACTION)
+        script.add_action(UPDATE, self.MOVE_RACKET2_ACTION)
         script.add_action(UPDATE, self.COLLIDE_BORDERS_ACTION)
-        script.add_action(UPDATE, self.COLLIDE_BRICKS_ACTION)
+        #script.add_action(UPDATE, self.COLLIDE_BRICKS_ACTION)
         script.add_action(UPDATE, self.COLLIDE_RACKET_ACTION)
         script.add_action(UPDATE, self.MOVE_RACKET_ACTION)
-        script.add_action(UPDATE, self.CHECK_OVER_ACTION)
+        script.add_action(UPDATE, self.COLLIDE_RACKET2_ACTION)
+        script.add_action(UPDATE, self.MOVE_RACKET2_ACTION)
+        #script.add_action(UPDATE, self.CHECK_OVER_ACTION)

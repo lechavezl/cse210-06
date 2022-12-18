@@ -5,7 +5,7 @@ from game.casting.color import Color
 # -------------------------------------------------------------------------------------------------- 
 
 # GAME
-GAME_NAME = "Batter"
+GAME_NAME = "Combat Ball"
 FRAME_RATE = 60
 
 # SCREEN
@@ -21,14 +21,14 @@ FIELD_LEFT = 0
 FIELD_RIGHT = SCREEN_WIDTH
 
 # FONT
-FONT_FILE = "batter/assets/fonts/zorque.otf"
+FONT_FILE = "combat-ball/assets/fonts/zorque.otf"
 FONT_SMALL = 32
 FONT_LARGE = 48
 
 # SOUND
-BOUNCE_SOUND = "batter/assets/sounds/boing.wav"
-WELCOME_SOUND = "batter/assets/sounds/start.wav"
-OVER_SOUND = "batter/assets/sounds/over.wav"
+BOUNCE_SOUND = "combat-ball/assets/sounds/boing.wav"
+WELCOME_SOUND = "combat-ball/assets/sounds/start.wav"
+OVER_SOUND = "combat-ball/assets/sounds/over.wav"
 
 # TEXT
 ALIGN_CENTER = 0
@@ -41,11 +41,13 @@ WHITE = Color(255, 255, 255)
 PURPLE = Color(255, 0, 255)
 
 # KEYS
-LEFT = "left"
-RIGHT = "right"
+LEFT = "a"
+RIGHT = "d"
 SPACE = "space"
 ENTER = "enter"
 PAUSE = "p"
+SECOND_LEFT = "j"
+SECOND_RIGHT = "l"
 
 # SCENES
 NEW_GAME = 0
@@ -55,7 +57,7 @@ IN_PLAY = 3
 GAME_OVER = 4
 
 # LEVELS
-LEVEL_FILE = "batter/assets/data/level-{:03}.txt"
+LEVEL_FILE = "combat-ball/assets/data/level-{:03}.txt"
 BASE_LEVELS = 5
 
 # -------------------------------------------------------------------------------------------------- 
@@ -80,6 +82,11 @@ STATS_GROUP = "stats"
 DEFAULT_LIVES = 3
 MAXIMUM_LIVES = 5
 
+# STATS
+SECOND_STATS_GROUP = "second_stats"
+SECOND_DEFAULT_LIVES = 3
+SECOND_MAXIMUM_LIVES = 5
+
 # HUD
 HUD_MARGIN = 15
 LEVEL_GROUP = "level"
@@ -91,32 +98,41 @@ SCORE_FORMAT = "SCORE: {}"
 
 # BALL
 BALL_GROUP = "balls"
-BALL_IMAGE = "batter/assets/images/000.png"
+BALL_IMAGE = "combat-ball/assets/images/000.png"
 BALL_WIDTH = 28
 BALL_HEIGHT = 28
 BALL_VELOCITY = 6
 
 # RACKET
 RACKET_GROUP = "rackets"
-RACKET_IMAGES = [f"batter/assets/images/{n:03}.png" for n in range(100, 103)]
+SECOND_RACKET_GROUP = "second_rackets"
+RACKET_IMAGES = [f"combat-ball/assets/images/{n:03}.png" for n in range(100, 103)]
 RACKET_WIDTH = 106
 RACKET_HEIGHT = 28
 RACKET_RATE = 6
 RACKET_VELOCITY = 7
 
-# BRICK
-BRICK_GROUP = "bricks"
-BRICK_IMAGES = {
-    "b": [f"batter/assets/images/{i:03}.png" for i in range(10,19)],
-    "g": [f"batter/assets/images/{i:03}.png" for i in range(20,29)],
-    "p": [f"batter/assets/images/{i:03}.png" for i in range(30,39)],
-    "y": [f"batter/assets/images/{i:03}.png" for i in range(40,49)]
-}
-BRICK_WIDTH = 80
-BRICK_HEIGHT = 28
-BRICK_DELAY = 0.5
-BRICK_RATE = 4
-BRICK_POINTS = 50
+# SECOND RACKET
+SECOND_RACKET_GROUP = "second_rackets"
+SECOND_RACKET_IMAGES = [f"combat-ball/assets/images/{n:03}.png" for n in range(103, 105)]
+SECOND_RACKET_WIDTH = 106
+SECOND_RACKET_HEIGHT = 28
+SECOND_RACKET_RATE = 6
+SECOND_RACKET_VELOCITY = 7
+
+# # BRICK
+# BRICK_GROUP = "bricks"
+# BRICK_IMAGES = {
+#     "b": [f"combat-ball/assets/images/{i:03}.png" for i in range(10,19)],
+#     "g": [f"combat-ball/assets/images/{i:03}.png" for i in range(20,29)],
+#     "p": [f"combat-ball/assets/images/{i:03}.png" for i in range(30,39)],
+#     "y": [f"combat-ball/assets/images/{i:03}.png" for i in range(40,49)]
+# }
+# BRICK_WIDTH = 80
+# BRICK_HEIGHT = 28
+# BRICK_DELAY = 0.5
+# BRICK_RATE = 4
+# BRICK_POINTS = 50
 
 # DIALOG
 DIALOG_GROUP = "dialogs"
