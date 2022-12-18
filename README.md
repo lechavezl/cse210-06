@@ -1,7 +1,9 @@
 # Conbat Ball
-Welcome player, the battle is about to begin.  In Battle Combat, you and your opponent will have to fight to score points in your favor and prevent your opponent from scoring points against you. You both have rackets to bounce the ball, if the ball touches the edge behind each player, the opposing player will lose a life. You only have three lives, so don't underestimate your opponent and show what you're made of.
+Welcome player, the battle is about to begin. In Combat Ball, you and your opponent will have to fight to score points in your favor and prevent your opponent from scoring points against you. You both have rackets to bounce the ball, if the ball touches the edge behind each player, the opposing player will lose a life. You only have three lives, so don't underestimate your opponent and show what you're made of.
 
 The battle for survival begins. Let's start Combat Ball!
+
+Note: Player 1 moves using the "A" and "S" keys, while player 2 moves using "J" and "L" keys.
 
 ## Getting Started
 ---
